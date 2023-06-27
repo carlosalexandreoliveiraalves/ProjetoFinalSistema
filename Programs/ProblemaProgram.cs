@@ -6,13 +6,13 @@ namespace mysqlefcore
 {
     class ProblemaProgram
     {
-        static void Main(string[] args, string nomeUsuario, string desc,  string? data)
+        static void Main(string[] args, string nomeUsuario, string desc,  DateTime data)
         {
             InsertData(nomeUsuario, desc, data);
             PrintData();
         }
 
-        public static void InsertData(string? nomeUsuario, string? desc, string? data)
+        public static void InsertData(string? nomeUsuario, string? desc, DateTime data)
         {
             using (var context = new ClientContext())
             {
@@ -52,6 +52,7 @@ namespace mysqlefcore
                 foreach (var problema in problemas ?? Enumerable.Empty<Problema>())
                 {
                     var data = new StringBuilder();
+                    data.AppendLine("---------------------\\-------------------");
                     data.AppendLine($"desc: {problema.desc}");
                     data.AppendLine($"data: {problema.data}");
                     data.AppendLine($"Usuario: {problema.Usuario?.nome}");

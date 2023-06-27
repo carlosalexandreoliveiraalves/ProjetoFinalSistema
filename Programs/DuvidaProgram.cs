@@ -4,15 +4,15 @@ using System.Text;
 
 namespace mysqlefcore
 {
-    class FeedBackProgram
+    class DuvidaProgram
     {
-        static void Main(string[] args, string nomeUsuario, string status, string desc, decimal valor)
+        static void Main(string[] args, string nomeUsuario, string desc)
         {
-            InsertData(nomeUsuario, status, desc, valor);
+            InsertData(nomeUsuario, desc);
             PrintData();
         }
 
-        public static void InsertData(string? nomeUsuario, string? status, string? desc, decimal valor)
+        public static void InsertData(string? nomeUsuario, string? desc)
         {
             using (var context = new ClientContext())
             {
@@ -28,35 +28,32 @@ namespace mysqlefcore
                 context.Usuario?.Add(usuario);
                 context.SaveChanges();
 
-                var feedback = new FeedBack
+                var duvida = new Duvida
                 {
                     desc = desc,
-                    status = status,
-                    valor = valor,
                     Usuario = usuario,
-                    id_usuario_feedback = usuario.id
+                    id_usuario_duvida = usuario.id
                 };
 
-                context.FeedBack?.Add(feedback);
+                context.Duvida?.Add(duvida);
                 context.SaveChanges();
             }
         }
 
         public static void PrintData()
         {
-            
+
             // Gets and prints all books in database
             using (var context = new ClientContext())
             {
-                var feedbacks = context.FeedBack?
+                var duvidas = context.Duvida?
                   .Include(p => p.Usuario);
-                foreach (var feedBack in feedbacks ?? Enumerable.Empty<FeedBack>())
+                foreach (var duvida in duvidas ?? Enumerable.Empty<Duvida>())
                 {
                     var data = new StringBuilder();
-                    data.AppendLine($"desc: {feedBack.desc}");
-                    data.AppendLine($"status: {feedBack.status}");
-                    data.AppendLine($"valor: {feedBack.valor}");
-                    data.AppendLine($"Usuario: {feedBack.Usuario?.nome}");
+                    data.AppendLine($"--------------------\\---------------------");
+                    data.AppendLine($"desc: {duvida.desc}");
+                    data.AppendLine($"Usuario: {duvida.Usuario?.nome}");
                     Console.WriteLine(data.ToString());
                 }
             }

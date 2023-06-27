@@ -1,6 +1,5 @@
 using mysqlefcore;
 using System;
-using tela;
 
 
 namespace projetofinal
@@ -11,8 +10,8 @@ namespace projetofinal
         {
 
 
-            string nomeUsuario = tela.Program.menu();
-            int opcao = tela.Program.opcoes();
+            string nomeUsuario = mysqlefcore.Program.menu();
+            int opcao = mysqlefcore.Program.opcoes();
 
 
             while (opcao != 8)
@@ -21,11 +20,11 @@ namespace projetofinal
                 switch (opcao)
                 {
                     case 0:
-                        opcao = tela.Program.opcoes();
+                        opcao = mysqlefcore.Program.opcoes();
                     break;
 
                     case 1:
-                        insercao.Program.feedback(nomeUsuario);
+                        insercao.Program.duvida(nomeUsuario);
                         opcao = 0;
                     break;
 
@@ -41,7 +40,7 @@ namespace projetofinal
 
                     case 4:
                         Console.Clear();
-                        mysqlefcore.FeedBackProgram.PrintData();
+                        mysqlefcore.DuvidaProgram.PrintData();
                         opcao = 0;
                         break;
 
@@ -58,7 +57,7 @@ namespace projetofinal
                         break;
 
                     case 7:
-                        nomeUsuario = tela.Program.menu();
+                        nomeUsuario = mysqlefcore.Program.menu();
                         opcao = 0;
                     break;
 
@@ -68,6 +67,7 @@ namespace projetofinal
                     break;
                 }
             }
+            
             Console.WriteLine("Saiu do programa");
         }
 

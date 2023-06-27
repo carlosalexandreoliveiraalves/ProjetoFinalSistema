@@ -7,28 +7,26 @@ namespace mysqlefcore
   {
     public DbSet<Usuario>? Usuario { get; set; }
 
-    public DbSet<FeedBack>? FeedBack { get; set; }
+    public DbSet<Duvida>? Duvida { get; set; }
     public DbSet<Reclamacao>? Reclamacao { get; set; }
     public DbSet<Problema>? Problema { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseMySQL("server=localhost;database=clientmanager;user=root;password=root");
+      optionsBuilder.UseMySQL("server=localhost;database=clientmanager3;user=root;password=root");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       base.OnModelCreating(modelBuilder);
 
-      modelBuilder.Entity<FeedBack>(entity =>
+      modelBuilder.Entity<Duvida>(entity =>
       {
         entity.HasKey(e => e.id);
         entity.Property(e => e.desc).IsRequired();
-        entity.Property(e => e.status);
-        entity.Property(e => e.valor);
-        entity.Property(e => e.id_usuario_feedback );
+        entity.Property(e => e.id_usuario_duvida );
         entity.HasOne(d => d.Usuario)
-          .WithMany(p => p.FeedBacks).HasForeignKey(e => e.id_usuario_feedback);;
+          .WithMany(p => p.Duvidas).HasForeignKey(e => e.id_usuario_duvida);;
       });
 
       modelBuilder.Entity<Reclamacao>(entity =>
